@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { nextTick } from "process";
 import { isUser } from "../utils/middleware.js";
 
 const categoryRoutes = Router()
@@ -13,6 +14,12 @@ categoryRoutes.get("/:id", (req, res) => {
 categoryRoutes.use(isUser)
 
 categoryRoutes.post("/", (req, res) => {
+    const { name } = req.body
+    const query = `INSERT INTO category(name) VALUES("${name}")`
+    db.query(query, (err, result, fields) => {
+        if (err) return nextTick(err)
+        res.status(201).send({ messages: "categoria creado con exito", success: true })
+    })
     res.send("createCategory")
 })
 
@@ -25,5 +32,3 @@ categoryRoutes.delete("/", (req, res) => {
 })
 
 export default categoryRoutes
-
-

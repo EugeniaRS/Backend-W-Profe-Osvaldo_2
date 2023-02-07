@@ -1,6 +1,9 @@
 import express from "express"
 import morgan from "morgan"
 import routes from "./routes/index.js"
+import dv from "./db/db.js"
+import mysql from " myslq2"
+console.log('File')
 
 const app = express()
 
